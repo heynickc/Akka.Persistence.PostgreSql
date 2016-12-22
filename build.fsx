@@ -190,7 +190,9 @@ let updateNugetPackages _ =
 
 Target "UpdateDependencies" <| fun _ ->
     printfn "Invoking updateNugetPackages"
-    updateNugetPackages()
+    match Fake.EnvironmentHelper.isMono with
+    | false -> updateNugetPackages()
+    | true -> () // don't run this function if building with Mono, it doesn't work
 
 //--------------------------------------------------------------------------------
 // Clean nuget directory
@@ -421,7 +423,7 @@ Target "HelpDocs" <| fun _ ->
 //--------------------------------------------------------------------------------
 
 // build dependencies
-"Clean" ==> "AssemblyInfo" ==> "RestorePackages" ==> "Build" ==> "CopyOutput" ==> "BuildRelease"
+"Clean" ==> "AssemblyInfo" ==> "RestorePackages" ==> "UpdateDependencies" ==> "Build" ==> "CopyOutput" ==> "BuildRelease"
 
 // tests dependencies
 "CleanTests" ==> "RunTests"
