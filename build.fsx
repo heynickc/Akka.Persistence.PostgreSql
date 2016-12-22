@@ -51,12 +51,11 @@ let testOutput = "TestResults"
 let nugetDir = binDir @@ "nuget"
 let workingDir = binDir @@ "build"
 let libDir = workingDir @@ @"lib\net45\"
-let nugetExe = FullName @"src\.nuget\NuGet.exe"
+let nugetExe = FullName @"./src/.nuget/NuGet.exe"
 let slnFile = "./src/Akka.Persistence.PostgreSql.sln"
 
 open Fake.RestorePackageHelper
 Target "RestorePackages" (fun _ -> 
-    logfn "nuget.exe path: %s" (nugetExe.ToString())
     slnFile
     |> RestoreMSSolutionPackages (fun p ->
         { p with
