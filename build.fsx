@@ -184,7 +184,7 @@ let updateNugetPackages _ =
                     ConfigFile = Some (getConfigFile isPreRelease)
                     Prerelease = true
                     ToolPath = nugetExe
-                    RepositoryPath = "src/Packages"
+                    RepositoryPath = "./src/packages"
                     Ids = getPackages project
                     }) config
 
