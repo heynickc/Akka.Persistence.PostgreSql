@@ -56,12 +56,13 @@ let slnFile = "./src/Akka.Persistence.PostgreSql.sln"
 
 open Fake.RestorePackageHelper
 Target "RestorePackages" (fun _ -> 
-     slnFile
-     |> RestoreMSSolutionPackages (fun p ->
-         { p with
-             OutputPath = "./src/packages"
-             Retries = 4 })
- )
+    logfn "nuget.exe path: %s" (nugetExe.ToString())
+    slnFile
+    |> RestoreMSSolutionPackages (fun p ->
+        { p with
+            OutputPath = "./src/packages"
+            Retries = 4 })
+)
 
 //--------------------------------------------------------------------------------
 // Clean build results
